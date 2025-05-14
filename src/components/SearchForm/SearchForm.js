@@ -7,7 +7,7 @@ const SearchForm = () => {
         <form className={styles.searchForm}>
             <TextInput placeholder="Search..." />
             <TextInput placeholder="Add new column" />
-            <Button placeholder="Sumbit"  />
+            <Button>Tekst</Button>
             
         </form>
     );
