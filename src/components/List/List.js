@@ -1,77 +1,12 @@
+import { useSelector } from 'react-redux';
 import styles from './List.module.scss';
 import Column from './../Column/Column';
 import ColumnForm from './../ColumnForm/ColumnForm';
-import { useState } from 'react';
-import shortid from 'shortid';
 import Button from '../Button/Button';
 
 const List = () => {
-  const [columns, setColumns] = useState([
-    {
-      id: 1,
-      title: 'Books',
-      icon: 'book',
-      cards: [
-        { id: 1, title: 'This is Going to Hurt' },
-        { id: 2, title: 'Interpreter of Maladies' }
-      ]
-    },
-    {
-      id: 2,
-      title: 'Movies',
-      icon: 'film',
-      cards: [
-        { id: 1, title: 'Harry Potter' },
-        { id: 2, title: 'Star Wars' }
-      ]
-    },
-    {
-      id: 3,
-      title: 'Games',
-      icon: 'gamepad',
-      cards: [
-        { id: 1, title: 'The Witcher' },
-        { id: 2, title: 'Skyrim' }
-      ]
-    }
-  ]);
-
-  const addCard = (newCard, columnId) => {
-    const columnsUpdated = columns.map(column => {
-      if (column.id === columnId) {
-        return {
-          ...column,
-          cards: [...column.cards, { id: shortid(), title: newCard.title }]
-        };
-      } else {
-        return column;
-      }
-    });
-
-    setColumns(columnsUpdated);
-  };
-
-  const addColumn = newColumn => {
-    setColumns([
-      ...columns,
-      {
-        id: shortid(),
-        title: newColumn.title,
-        icon: newColumn.icon,
-        cards: []
-      }
-    ]);
-  };
-
-  const [title, setTitle] = useState('');
-  const [icon, setIcon] = useState('');
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    addColumn({ title: title, icon: icon });
-    setTitle('');
-    setIcon('');
-  };
+  const columns = useSelector(state => state.columns);
+  const cards = useSelector(state => state.cards);
 
   return (
     <div className={styles.list}>
@@ -79,6 +14,7 @@ const List = () => {
         <h2 className={styles.title}>Things to do<span>soon!</span></h2>
       </header>
       <p className={styles.description}>Interesting things I want to check out</p>
+
       <section className={styles.columns}>
         {columns.map(column => (
           <Column
@@ -86,17 +22,17 @@ const List = () => {
             id={column.id}
             title={column.title}
             icon={column.icon}
-            cards={column.cards}
-            action={addCard}
+            cards={cards.filter(card => card.columnId === column.id)} // <-- tu łączymy dane
           />
         ))}
       </section>
-      <form className={styles.columnForm} onSubmit={handleSubmit}>
+
+      <form className={styles.columnForm} onSubmit={e => e.preventDefault()}>
         <label>
-          Title: <input type="text" value={title} onChange={e => setTitle(e.target.value)} />
+          Title: <input type="text" />
         </label>
         <label>
-          Icon: <input type="text" value={icon} onChange={e => setIcon(e.target.value)} />
+          Icon: <input type="text" />
         </label>
         <Button>Add column</Button>
       </form>
