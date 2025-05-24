@@ -2,13 +2,7 @@ import styles from './Column.module.scss';
 import Card from '../Card/Card';
 import CardForm from '../CardForm/CardForm';
 
-const Column = ({ id, title, icon, cards, action }) => {
-  const dodajKarte = (nowaKarta) => {
-    if (action) {
-      action(nowaKarta, id);
-    }
-  };
-
+const Column = ({ id, title, icon, cards }) => {
   return (
     <article className={styles.column}>
       <span className={`${styles.icon} fa fa-${icon}`} />
@@ -18,7 +12,7 @@ const Column = ({ id, title, icon, cards, action }) => {
           <Card key={card.id} title={card.title} />
         ))}
       </ul>
-      <CardForm action={dodajKarte} />
+      <CardForm columnId={id} />
     </article>
   );
 };
