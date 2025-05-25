@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Button from '../Button/Button';
 import TextInput from '../TextInput/TextInput';
+import { addCard } from '../../redux/store';
 
 const CardForm = ({ columnId }) => {
   const [title, setTitle] = useState('');
@@ -10,14 +11,14 @@ const CardForm = ({ columnId }) => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    dispatch({
-      type: 'ADD_CARD',
-      newCard: {
-        id: Date.now(), // unikalne ID
-        title,
-        columnId,
-      },
-    });
+    dispatch(
+  addCard({
+    id: Date.now(),
+    title,
+    columnId,
+  })
+);
+
 
     setTitle('');
   };

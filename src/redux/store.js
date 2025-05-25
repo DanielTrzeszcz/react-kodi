@@ -1,6 +1,34 @@
 import { createStore } from 'redux';
-import initialState from './initialState'; 
+import initialState from './initialState';
+import strContains from '../utils/strContains';
 
+// --- Selektory ---
+export const getFilteredCards = ({ cards, searchString }, columnId) =>
+  cards.filter(card =>
+    card.columnId === columnId && strContains(card.title, searchString)
+  );
+
+export const getAllColumns = (state) => state.columns;
+export const getAllCards = (state) => state.cards;
+export const getSearchString = (state) => state.searchString;
+
+// --- Kreatory akcji ---
+export const addCard = payload => ({
+  type: 'ADD_CARD',
+  newCard: payload,
+});
+
+export const addColumn = payload => ({
+  type: 'ADD_COLUMN',
+  newColumn: payload,
+});
+
+export const updateSearchString = payload => ({
+  type: 'UPDATE_SEARCHSTRING',
+  payload,
+});
+
+// --- Reducer ---
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_COLUMN':
@@ -26,9 +54,10 @@ const reducer = (state = initialState, action) => {
   }
 };
 
+// --- Store ---
 const store = createStore(
   reducer,
-  initialState, 
+  initialState,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 

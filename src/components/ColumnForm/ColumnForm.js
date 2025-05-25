@@ -8,7 +8,7 @@ const ColumnForm = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (!title.trim()) return; // nie dodawaj pustych kolumn
+    if (!title.trim()) return; 
     props.action({ title, icon });
     setTitle('');
     setIcon('');
