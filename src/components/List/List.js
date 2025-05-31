@@ -1,11 +1,20 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import styles from './List.module.scss';
 import Column from './../Column/Column';
 import ColumnForm from './../ColumnForm/ColumnForm';
+import { getListById, getColumnsByList } from '../../redux/store';
+import SearchForm from './../SearchForm/SearchForm'; // ⬅️ dodaj ten import
+import ListForm from '../ListForm/ListForm';
+
 
 const List = () => {
+  const { listId } = useParams();
+  const numericListId = parseInt(listId, 10); // 🔧 konwersja na liczbę
+
   const dispatch = useDispatch();
-  const columns = useSelector(state => state.columns);
+  const listData = useSelector(state => getListById(state, numericListId));
+  const columns = useSelector(state => getColumnsByList(state, numericListId));
   const cards = useSelector(state => state.cards);
 
   const addColumn = column => {
@@ -14,20 +23,25 @@ const List = () => {
       type: 'ADD_COLUMN',
       newColumn: {
         id: newId,
+        listId: numericListId,
         title: column.title,
         icon: column.icon || 'list',
       },
     });
   };
 
+  if (!listData) return <p>List not found.</p>; // zabezpieczenie
+
   return (
     <div className={styles.list}>
       <header className={styles.header}>
         <h2 className={styles.title}>
-          Things to do <span>soon!</span>
+          {listData.title} <span>!</span>
         </h2>
       </header>
-      <p className={styles.description}>Interesting things I want to check out</p>
+      <p className={styles.description}>{listData.description}</p>
+      <SearchForm />
+
 
       <section className={styles.columns}>
         {columns.map(column => (
