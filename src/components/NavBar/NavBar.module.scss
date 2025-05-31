@@ -1,0 +1,36 @@
+@use '../../styles/settings' as *;
+
+
+.navbar {
+  background-color: darken($color-dark, 3%);
+  padding: 1rem 0;
+}
+
+.navbarContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon {
+  font-size: 24px;
+  color: white;
+  text-decoration: none;
+}
+
+.links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+
+  a {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
