@@ -3,7 +3,8 @@ import TextInput from '../TextInput/TextInput';
 import Button from '../Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { updateSearchString, getSearchString } from '../../redux/store';
+import { getSearchString } from '../../redux/selectors';
+import { updateSearchString } from '../../redux/actions';
 
 const SearchForm = () => {
   const dispatch = useDispatch();

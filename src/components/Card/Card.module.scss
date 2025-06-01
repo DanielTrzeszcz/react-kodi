@@ -25,3 +25,14 @@
     color: gold;
   }
 }
+.removeButton {
+  background: none;
+  border: none;
+  color: red;
+  margin-left: 10px;
+  cursor: pointer;
+
+  i {
+    font-size: 1.1rem;
+  }
+}

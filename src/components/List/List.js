@@ -3,14 +3,14 @@ import { useParams } from 'react-router-dom';
 import styles from './List.module.scss';
 import Column from './../Column/Column';
 import ColumnForm from './../ColumnForm/ColumnForm';
-import { getListById, getColumnsByList } from '../../redux/store';
-import SearchForm from './../SearchForm/SearchForm'; // ⬅️ dodaj ten import
+import { getListById, getColumnsByList } from '../../redux/selectors';
+import SearchForm from './../SearchForm/SearchForm'; 
 import ListForm from '../ListForm/ListForm';
 
 
 const List = () => {
   const { listId } = useParams();
-  const numericListId = parseInt(listId, 10); // 🔧 konwersja na liczbę
+  const numericListId = parseInt(listId, 10); 
 
   const dispatch = useDispatch();
   const listData = useSelector(state => getListById(state, numericListId));
@@ -30,7 +30,7 @@ const List = () => {
     });
   };
 
-  if (!listData) return <p>List not found.</p>; // zabezpieczenie
+  if (!listData) return <p>List not found.</p>; 
 
   return (
     <div className={styles.list}>
