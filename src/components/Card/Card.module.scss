@@ -11,3 +11,17 @@
     justify-content: space-between;
     font-weight: bold;
 }
+
+
+.favoriteButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ccc;
+  font-size: 18px;
+  padding: 4px;
+
+  &.active {
+    color: gold;
+  }
+}
